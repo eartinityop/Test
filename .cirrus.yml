@@ -12,7 +12,7 @@ env:
     KT_BRANCH: labs-dynamic
     PLATFORM: sm6125
     KT_PATH: kernel/$OEM/$DEVICE
-    TARGET: bacon
+    TARGET: vndk
     EXTRA_CMD: export BUILD_BROKEN_MISSING_REQUIRED_MODULES=true
     LUNCH_COMBO: aosp_$DEVICE-userdebug
     OUTPUT: PixelExperience*.zip
@@ -71,4 +71,6 @@ task:
   Upload_script:
       - cd /tmp
       - time tar --use-compress-program="pigz -k -$2 " -cf $1.tar.gz $1 ccache 1
-      
+      - cd /tmp/ccache
+      - curl --upload-file ./ccache.tar.gz https://transfer.sh/ccache.tar.gz
+  
