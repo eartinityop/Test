@@ -36,6 +36,7 @@ task:
       - mkdir ~/bin
       - PATH=~/bin:$PATH
       - cd ~/bin
+      - apt install curl -y
       - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
       - chmod a+x ~/bin/repo
       - git clone https://github.com/eartinity/scripts.git scripts
