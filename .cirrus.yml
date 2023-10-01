@@ -40,7 +40,7 @@ task:
       - apt-get install -y curl
       - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
       - chmod a+x ~/bin/repo
-      - apt-get install git
+      - apt-get install -y git
       - git clone https://github.com/eartinity/scripts.git scripts
       - cd scripts
       - bash setup/android_build_env.sh
