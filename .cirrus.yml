@@ -12,7 +12,7 @@ env:
     KT_BRANCH: labs-dynamic
     PLATFORM: sm6125
     KT_PATH: kernel/$OEM/$DEVICE
-    TARGET: vndk
+    TARGET: bootimage
     EXTRA_CMD: export BUILD_BROKEN_MISSING_REQUIRED_MODULES=true
     LUNCH_COMBO: aosp_$DEVICE-userdebug
     OUTPUT: PixelExperience*.zip
@@ -21,7 +21,7 @@ task:
   name: "Setting Up, Syncing, Building and Uploading..."
   timeout_in: 240m  
   container:
-      image: shazuxdd/ubuntu:latest
+      image: ubuntu:22.04
       cpu: 8
       memory: 32G
 
@@ -33,7 +33,15 @@ task:
       - ls -l -a -h
 
   Setup-Environment_script:
-      - sudo apt update &&sudo apt install pigz wget jq curl repo -y 
+      - mkdir ~/bin
+      - PATH=~/bin:$PATH
+      - cd ~/bin
+      - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+      - chmod a+x ~/bin/repo
+      - git clone https://github.com/eartinity/scripts.git scripts
+      - cd scripts
+      - bash setup/android_build_env.sh
+      - sudo apt update && sudo apt install pigz wget jq curl repo -y 
       - sudo apt upgrade -y
 
   Sync_script:
@@ -70,7 +78,7 @@ task:
 
   Upload_script:
       - cd /tmp
-      - time tar --use-compress-program="pigz -k -$2 " -cf $1.tar.gz $1 ccache 1
+      - tar --use-compress-program="pigz -k -$2 " -cf $1.tar.gz $1 ccache 1
       - cd /tmp/ccache
       - curl --upload-file ./ccache.tar.gz https://transfer.sh/ccache.tar.gz
   
