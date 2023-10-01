@@ -44,8 +44,8 @@ task:
       - git clone https://github.com/eartinity/scripts.git scripts
       - cd scripts
       - bash setup/android_build_env.sh
-      - sudo apt update && sudo apt install pigz wget jq curl repo -y 
-      - sudo apt upgrade -y
+      - apt update && apt install pigz wget jq curl repo -y 
+      - apt upgrade -y
 
   Sync_script:
       - mkdir -p ~/work
