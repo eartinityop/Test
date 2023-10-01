@@ -36,6 +36,7 @@ task:
       - mkdir ~/bin
       - PATH=~/bin:$PATH
       - cd ~/bin
+      - apt-get update
       - apt-get install -y curl
       - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
       - chmod a+x ~/bin/repo
