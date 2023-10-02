@@ -9,7 +9,7 @@ env:
     VT_BRANCH: thirteen 
     VT_PATH: vendor/$OEM/$DEVICE
     KT_LINK: https://github.com/eartinity/kernel_realme_trinket.git
-    KT_BRANCH: labs-dynamic
+    KT_BRANCH: inline/dynamic
     PLATFORM: sm6125
     KT_PATH: kernel/$OEM/$DEVICE
     TARGET: bootimage
