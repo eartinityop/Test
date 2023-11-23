@@ -12,7 +12,7 @@ env:
     KT_BRANCH: inline/dynamic
     PLATFORM: sm6125
     KT_PATH: kernel/$OEM/$DEVICE
-    TARGET: bootimage
+    TARGET: systemimage
     EXTRA_CMD: export BUILD_BROKEN_MISSING_REQUIRED_MODULES=true
     LUNCH_COMBO: aosp_$DEVICE-userdebug
     OUTPUT: PixelExperience*.zip
@@ -27,10 +27,10 @@ task:
 
 
 
-  Storage-Checker_script:
+  System-Checker_script:
       - df -h
-      - lsblk
-      - ls -l -a -h
+      - lscpu
+      - free -h
 
   Setup-Environment_script:
       - mkdir ~/bin
@@ -68,12 +68,10 @@ task:
       - cd ~/work
       - . build/envsetup.sh
       - lunch $LUNCH_COMBO
-      - export USE_CCACHE=1
       - export CCACHE_DIR=/tmp/ccache
       - export CCACHE_EXEC=$(which ccache)
       - export USE_CCACHE=1
-      - ccache -M 50G
-      - ccache -o compression=true
+      - ccache -M 15G
       - ccache -o compression=true
       - ccache -z
       - $EXTRA_CMD
